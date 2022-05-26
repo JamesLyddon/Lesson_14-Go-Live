@@ -48,4 +48,57 @@ We will focus on VERCEL
 
 You sign up to VERCEL with your github, gitlab, or gitbucket account. This is because VERCEL will take a repo from your account and use that as the source for your hosted app. The great thing about this is if you have your project set up with a remote repo and then host it through Vercel then rebuilding the project locally on your machine and updating the online repo will autmatically update the live version (there are tests that can be inserted into this process to stop the live version from breaking).
 
+If we do not want to go with uploading from an online repo we can instead sign up with our email and include Vercel in our project.
+
+Let's install it globally on our machine (be aware that if you want to share the project with someone and they don't have vercel installed then they will need to install it themselves, to avoid this you could install it for this project only and have it included as a dependency. We could also include the flag --save-dev to make sure it is included as a dev dependency).
+
+  npm install vercel -g
+
+(to install non-globally/locally you just ommit the -g flag)
+
+Now let's add a new script to our package.json() that we can use to deploy our project with Vercel
+
+  "scripts": {
+    "build": "webpack --config ./bundler/webpack.prod.js",
+    "dev": "webpack serve --config ./bundler/webpack.dev.js",
+    "deploy": "vercel --prod"
+  },
+
+(If we use the command vercel without --prod then we will see our project in a preview window)
+
+DEPLOY FOR THE FIRST TIME
+
+We don't need to build the project first since Vercel will do this on its side.
+
+Assuming the CLI is in our project directory we run
+
+  npm run deploy
+
+if you've never logged into Vercel through VScode then this will prompt you to log in.
+
+It will then ask us if we want to set up and deploy.
+
+Then it will ask which scope we want to deploy to (this is like multiple accounts for teams etc, we likely only have one if a personal account)
+
+Then we'll be asked if we want to link to existing project. We don't have one so no.
+
+Then we need a project name, I'll go with 'donut-time'
+
+Then it will ask which directory your code is located. ./ will be 'this' directory which is correct assuming you ran the command in your project folder's address in the cli
+
+Then Vercel will start setting up and deploying!
+
+Vercel will then ask if we want to override any default settings. We can see the output directory is set to 'public' not 'dist' so we do need to change this setting from 'public' to 'dist'.
+
+Now our project is LIVE!
+
+Now wherever we want to update our live version we just go to the terminal and run
+
+  npm run deploy
+
+Again, this is done without an online repo. We are 'pushing' directly from our machine.
+
+
+
+
 
