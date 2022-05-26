@@ -1,0 +1,51 @@
+-----LESSON 14 - GO LIVE-----
+
+So far we've been doing everything on our local server but we want to put it on the web for everyone to see.
+
+There are many solutions to this
+
+TRADITIONAL BUILD
+
+Traditional hosting solutions like OVH, 1and1, or Gandhi where you have to upload files manually by using an FTP client
+
+So far we have been doing everything 'in development', meaning that we have a large project with lots of files and nothing is removed, shrunk down, or optimized. Before we deploy to the web we want to 'build' our project to create a /dist/ or distribution folder which will have only the essential data in a web friendly format (usually very hard for humans to read).
+
+We would do this by running
+
+  npm run build
+
+and then uploading everything in the /dist/ folder (which is created the first time we run 'npm run build')
+
+This executes the script we have defined in package.json
+
+  "build": "webpack --config ./bundler/webpack.prod.js"
+
+As you can see this uses webpack to 'bundle' our app.
+
+Building may take a minute or so depending on the project size.
+
+If we check the size of the /dist/ folder it is only 2.95Mb where as our entire project folder minus the /dist/ is 76 Mb. This a factor of 25 and when loading data on the web speed is everything; the different between a slick responsive user experience and a laggy pain to navigate.
+
+If we make changes to our project and run build again it will overwrite the /dist folder with the new build, no need to delete the old folder first.
+
+So for the traditional method of deploying, we would just take the files in the build folder and upload them to our paid for web host.
+
+VERCEL
+
+Vercel are the creators of Next.js but fundamentally the are a Modern hosting solution that is
+
+- Developer friendly
+- Easy to set up
+- Supports continuous intergration (autimation of testing, deployment etc.)
+- Works well with both complex and simple projects
+
+There are 2 good alternatives to Vercel
+
+- Netlify
+- GitHub Pages
+
+We will focus on VERCEL
+
+You sign up to VERCEL with your github, gitlab, or gitbucket account. This is because VERCEL will take a repo from your account and use that as the source for your hosted app. The great thing about this is if you have your project set up with a remote repo and then host it through Vercel then rebuilding the project locally on your machine and updating the online repo will autmatically update the live version (there are tests that can be inserted into this process to stop the live version from breaking).
+
+
